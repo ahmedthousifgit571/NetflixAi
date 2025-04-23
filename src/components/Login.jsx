@@ -1,7 +1,30 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import Header from './Header'
+import validateData from '../utils/validate';
+
 
 const Login = () => {
+  const [isSignInForm,setIsSignInForm] = useState(true)
+  const [errorMessage,setErrorMessage] = useState(null)
+  
+
+  const email = useRef(null)
+  const password = useRef(null)
+
+  const handleButtonclick =()=>{
+    let validEmail = email.current.value
+    let validPassword = password.current.value
+   
+    const message = validateData(validEmail,validPassword)
+    console.log(message);
+    setErrorMessage(message)
+  }
+
+  const handleToggleSignup =()=>{
+    setIsSignInForm(!isSignInForm)
+
+
+  }
   return (
     <div className='w-full bg-black'>
       {/* background image with overlay */}
@@ -18,33 +41,51 @@ const Login = () => {
       {/* login form container */}
       <div className="relative z-10 flex justify-center items-center min-h-screen pt-20 pb-10 px-4">
         <div className="bg-black/75 rounded-md w-full max-w-md p-12 pt-10">
-          <h1 className="text-white text-3xl font-bold mb-6">Sign In</h1>
+          <h1 className="text-white text-3xl font-bold mb-6">{ isSignInForm ?  "Sign In" : "Sign Up"}</h1>
           
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={(e)=> e.preventDefault()}>
             {/* Email input */}
-            <div>
+           
+              {!isSignInForm && ( <div> <input
+                type="text"
+                placeholder="Enter your Full Name"
+                className="w-full bg-zinc-800 text-white p-4 rounded border border-zinc-600 focus:outline-none focus:border-zinc-400 "
+              /> </div>)}
               <input
+                ref={email}
                 type="text"
                 placeholder="Email or mobile number"
                 className="w-full bg-zinc-800 text-white p-4 rounded border border-zinc-600 focus:outline-none focus:border-zinc-400"
               />
-            </div>
+         
             
             {/* Password input */}
             <div>
               <input
+                ref={password}
                 type="password"
                 placeholder="Password"
                 className="w-full bg-zinc-800 text-white p-4 rounded border border-zinc-600 focus:outline-none focus:border-zinc-400"
               />
             </div>
+            <p className='text-red-700 font-bold'>{errorMessage}</p>
+
+            {!isSignInForm && (<div>
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                className="w-full bg-zinc-800 text-white p-4 rounded border border-zinc-600 focus:outline-none focus:border-zinc-400"
+              />
+            </div>)}
+
             
             {/* Sign In button */}
             <button
               type="submit"
+              onClick={handleButtonclick}
               className="bg-red-600 text-white py-3 rounded font-medium hover:bg-red-700 transition mt-6"
             >
-              Sign In
+            { isSignInForm ?  "Sign In" : "Sign Up"}
             </button>
             
             {/* OR divider */}
@@ -80,13 +121,12 @@ const Login = () => {
             </div>
             
             {/* New to Netflix */}
-            <div className="mt-4 text-zinc-400 text-sm">
-              New to Netflix?
-              <a href="#" className="text-white ml-1 hover:underline">
-                Sign up now
-              </a>
-              .
-            </div>
+          
+             
+              <p  className="text-white ml-1 hover:underline cursor-pointer" onClick={()=> handleToggleSignup()}>
+             {isSignInForm ? "New to Netflix? Sign up now" : "Already an user , sign in"}
+              </p>
+            
           </form>
         </div>
       </div>
