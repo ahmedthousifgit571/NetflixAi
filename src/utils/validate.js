@@ -2,8 +2,7 @@ const validateData =(email,password)=>{
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-    const isValidName = nameRegex.test(name.trim());
-    console.log(nameRegex.test("ahmed thousif")); 
+
     
     const isValidEmail = emailRegex.test(email)
     const isValidePassword = passwordRegex.test(password)

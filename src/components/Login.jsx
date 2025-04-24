@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react'
 import Header from './Header'
 import validateData from '../utils/validate';
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from '../utils/firebase'
 
 
 const Login = () => {
@@ -16,8 +18,40 @@ const Login = () => {
     let validPassword = password.current.value
    
     const message = validateData(validEmail,validPassword)
-    console.log(message);
     setErrorMessage(message)
+
+    if(message) return
+
+    // signup part for users
+    if(!isSignInForm) {
+      // signup logic
+      createUserWithEmailAndPassword(auth, validEmail,validPassword)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    console.log(user)  
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setErrorMessage(errorCode + " " + errorMessage)
+  });
+
+    }else{
+      // signin logic
+      signInWithEmailAndPassword(auth, validEmail,validPassword)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user)
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setErrorMessage(errorCode + " " + errorMessage);
+        
+      });
+    }
   }
 
   const handleToggleSignup =()=>{
