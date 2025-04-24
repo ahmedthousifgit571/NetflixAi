@@ -1,6 +1,21 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
+import { auth } from '../utils/firebase';
+import { signOut } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+  const handleSignOut = () => {
+      signOut(auth)
+        .then(() => {
+          navigate("/")
+        })
+        .catch((error) => {
+          console.error("Signout error:", error)
+          navigate('/errorPage')
+        });
+    }
+  const user = useSelector(store=>store.user)
   return (
     <header className='px-12 py-6 flex items-center justify-between absolute w-full top-0 left-0 z-50'>
       {/* Netflix Logo */}
@@ -31,7 +46,12 @@ const Header = () => {
 
         </div>
           {/* sign in button */}
-        <button className='bg-red-600 text-white font-medium px-4 py-1 rounded hover:bg-red-700'>Sign in</button>
+        {user ? <button 
+        className="bg-red-600 text-white font-medium px-4 py-1 rounded hover:bg-red-700"
+        onClick={handleSignOut}
+      >
+        Sign Out
+      </button>  : <button className='bg-red-600 text-white font-medium px-4 py-1 rounded hover:bg-red-700'>Sign in</button>}
       </div>
        
        

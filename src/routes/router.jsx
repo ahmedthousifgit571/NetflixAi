@@ -1,7 +1,7 @@
-import {createBrowserRouter} from 'react-router-dom'
+import {createBrowserRouter, useNavigate} from 'react-router-dom'
 import Body from '../components/Body'
 import Browse from '../components/Browse'
-import Login from '../components/Login'
+import AuthWrapper from './AuthWrapper'
 
 
 
@@ -9,14 +9,16 @@ import Login from '../components/Login'
 const appRouter = createBrowserRouter([
     {
         path :"/",
-        element: <Body />
+        element: <AuthWrapper><Body /></AuthWrapper> 
         
     },
     {
         path:"/browse",
-        element:<Browse />
-
+        element:<AuthWrapper> <Browse /> </AuthWrapper>
+ 
     }
 ])
+
+
 
 export default appRouter
