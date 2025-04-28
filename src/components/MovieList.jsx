@@ -3,7 +3,6 @@ import MovieCard from './MovieCard';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const MovieList = ({ title, movies }) => {
-    console.log(movies);
     
   const sliderRef = useRef(null);
   
