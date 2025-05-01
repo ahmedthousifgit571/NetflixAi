@@ -8,7 +8,7 @@ const VideoBackground = ({ movieId }) => {
   
   if (!trailerVideo) return null;
 
-  // Constructing the YouTube embed URL with proper parameters to match Netflix style
+  // Constructing the YouTube embed URL with proper parameters 
   const youtubeEmbedUrl = `https://www.youtube.com/embed/${trailerVideo?.key}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${trailerVideo?.key}&modestbranding=1`;
   
   return (
