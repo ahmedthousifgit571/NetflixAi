@@ -1,14 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from '../utils/firebase';
 import { signOut } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from "firebase/auth"
 import { addUsers, removeUsers } from '../utils/userSlice';
+import { toggleGptSearch } from '../utils/gptSlice';
 
 const Header = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  
+
+  const handleGptSearchClick =()=>{
+      dispatch(toggleGptSearch())
+  }
 
   const handleSignOut = () => {
     signOut(auth)
@@ -52,6 +58,17 @@ const Header = () => {
 
       {/* Right section: Language selector and Sign In button */}
       <div className='flex items-center space-x-2'>
+
+        {/* GPT search bar for recommendation */}
+        <div className='relative flex items-center'>
+          <button onClick={handleGptSearchClick} className='bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded transition duration-200 flex items-center'>
+            <span>GPT</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        </div>
+
         {/* language selector */}
         <div className='relative'>
           <select name="" id="" className="appearance-none bg-black bg-opacity-20 text-white border border-white border-opacity-30 rounded px-6 py-1 pr-8 focus:outline-none focus:ring-1 focus:ring-white">
