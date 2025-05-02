@@ -4,6 +4,7 @@ import validateData from '../utils/validate';
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from '../utils/firebase'
 import { useNavigate } from 'react-router-dom';
+import { BG_URL } from '../utils/constant';
 
 
 const Login = () => {
@@ -68,7 +69,7 @@ const Login = () => {
     <div className='w-full bg-black'>
       {/* background image with overlay */}
       <div className='absolute inset-0 bg-cover bg-center bg-no-repeat opactiy-100' style={{
-        backgroundImage:`url("https://assets.nflxext.com/ffe/siteui/vlv3/69bec183-9cc8-49d4-8fc2-08228d3c91b4/web/IN-en-20250414-TRIFECTA-perspective_c8273fb1-8860-4ff5-bd1c-c2c4b44d5f2a_small.jpg")`
+        backgroundImage:`url(${BG_URL})`
       }} />
         
         {/* Gradient overlay */}

@@ -9,3 +9,7 @@ export const options = {
 
 
 export const IMG_CDN_URL ="https://image.tmdb.org/t/p/w500/"
+
+export const BG_URL = "https://assets.nflxext.com/ffe/siteui/vlv3/69bec183-9cc8-49d4-8fc2-08228d3c91b4/web/IN-en-20250414-TRIFECTA-perspective_c8273fb1-8860-4ff5-bd1c-c2c4b44d5f2a_small.jpg"
+
+export const SUPPORTED_LANGUAGES = [ {identifier: "en",name:"English"}, {identifier:"hindi",name:"Hindi"},{identifier:"tamil",name:"Tamil"}]

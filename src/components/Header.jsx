@@ -6,11 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from "firebase/auth"
 import { addUsers, removeUsers } from '../utils/userSlice';
 import { toggleGptSearch } from '../utils/gptSlice';
+import { changeLanguage } from '../utils/configSlice';
+import { SUPPORTED_LANGUAGES } from '../utils/constant';
 
 const Header = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   
+  const handleLanguage =(e)=>{
+    dispatch(changeLanguage(e?.target?.value))
+  }
 
   const handleGptSearchClick =()=>{
       dispatch(toggleGptSearch())
@@ -71,10 +76,10 @@ const Header = () => {
 
         {/* language selector */}
         <div className='relative'>
-          <select name="" id="" className="appearance-none bg-black bg-opacity-20 text-white border border-white border-opacity-30 rounded px-6 py-1 pr-8 focus:outline-none focus:ring-1 focus:ring-white">
-            <option value="">English</option>
-            <option value="">Hindi</option>
-            <option value="">Tamil</option>
+          <select name="" id="" className="appearance-none bg-black bg-opacity-20 text-white border border-white border-opacity-30 rounded px-6 py-1 pr-8 focus:outline-none focus:ring-1 focus:ring-white" onChange={handleLanguage}>
+            {SUPPORTED_LANGUAGES.map(lang => <option key={lang.identifier} value={lang.identifier}  >{lang.name}</option> )}
+            
+            
           </select>
           {/* pointer arrow */}
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
