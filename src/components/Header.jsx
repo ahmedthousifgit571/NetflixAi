@@ -12,6 +12,8 @@ import { SUPPORTED_LANGUAGES } from '../utils/constant';
 const Header = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const user = useSelector(store => store.user)
+  const gptSearchButton = useSelector(store =>store.gpt.showGptSearch)
   
   const handleLanguage =(e)=>{
     dispatch(changeLanguage(e?.target?.value))
@@ -48,7 +50,6 @@ const Header = () => {
     return () => unsubscribe()
   }, [])
 
-  const user = useSelector(store => store.user)
 
   return (
     <header className='px-12 py-6 flex items-center justify-between absolute w-full top-0 left-0 z-50'>
@@ -67,26 +68,38 @@ const Header = () => {
         {/* GPT search bar for recommendation */}
         <div className='relative flex items-center'>
           <button onClick={handleGptSearchClick} className='bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded transition duration-200 flex items-center'>
-            <span>GPT</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+          { 
+           !gptSearchButton ?
+            <> 
+              <span>GPT</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg> 
+            </>
+            :
+            <span>Home</span>
+          }
           </button>
         </div>
 
         {/* language selector */}
         <div className='relative'>
+        {
+           gptSearchButton && 
+           <>
           <select name="" id="" className="appearance-none bg-black bg-opacity-20 text-white border border-white border-opacity-30 rounded px-6 py-1 pr-8 focus:outline-none focus:ring-1 focus:ring-white" onChange={handleLanguage}>
-            {SUPPORTED_LANGUAGES.map(lang => <option key={lang.identifier} value={lang.identifier}  >{lang.name}</option> )}
-            
-            
+             {SUPPORTED_LANGUAGES.map(lang => <option key={lang.identifier} value={lang.identifier}  >{lang.name}</option> )}
           </select>
+          
+          
           {/* pointer arrow */}
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
             <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
               <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
             </svg>
           </div>
+          </>
+        }
         </div>
 
         {/* sign in button */}
